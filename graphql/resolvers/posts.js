@@ -38,6 +38,10 @@ module.exports = {
                 createdAt: new Date().toISOString()
             });
 
+            context.pubSub.publish('NEW_POST', {
+                newPost: newPost
+            });
+
             return await newPost.save();
         },
         async deletePost(_, {postId}, context) {
@@ -58,6 +62,11 @@ module.exports = {
             } catch (e) {
                 throw new Error(e);
             }
+        }
+    },
+    Subscription: {
+        newPost: {
+            subscribe: (_, __, {pubSub}) => pubSub.asyncIterator('NEW_POST')
         }
     }
 };
