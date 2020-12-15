@@ -23,13 +23,6 @@ const NavBar = () => {
                     as={Link}
                     to={'/'}
                 />
-                {/*<Menu.Item*/}
-                {/*    name='home'*/}
-                {/*    active={activeItem === 'home'}*/}
-                {/*    onClick={handleItemClick}*/}
-                {/*    as={Link}*/}
-                {/*    to={'/'}*/}
-                {/*/>*/}
                 <Menu.Menu position='right'>
                     <Menu.Item
                         name='logout'
