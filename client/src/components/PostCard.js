@@ -4,7 +4,7 @@ import moment from 'moment';
 import {Card, Icon, Label, Image, Button} from 'semantic-ui-react';
 
 import {AuthContext} from "../context/auth";
-import {LikeButton, DeleteButton} from './';
+import {LikeButton, DeleteButton, PopUp} from './';
 
 const PostCard = ({post: {body, createdAt, id, username, likes, likeCount, commentCount}}) => {
     const context = useContext(AuthContext);
@@ -22,11 +22,13 @@ const PostCard = ({post: {body, createdAt, id, username, likes, likeCount, comme
                 <Card.Description>{body}</Card.Description>
             </Card.Content>
             <Card.Content extra>
-               <LikeButton user={context.user} post={{id, likes, likeCount}} />
+                    <LikeButton user={context.user} post={{id, likes, likeCount}} />
                 <Button labelPosition='right' as={Link} to={`/posts/${id}`}>
-                    <Button color='blue' basic>
-                        <Icon name='comments' />
-                    </Button>
+                    <PopUp content={'Comment on post'}>
+                        <Button color='blue' basic>
+                            <Icon name='comments' />
+                        </Button>
+                    </PopUp>
                     <Label basic color='blue' pointing='left'>
                         {commentCount}
                     </Label>

@@ -5,7 +5,7 @@ import {Button, Card, Form, Grid, Icon, Image, Label} from "semantic-ui-react";
 import moment from "moment";
 
 import {AuthContext} from "../context/auth";
-import {DeleteButton, LikeButton} from "../components";
+import {DeleteButton, LikeButton, PopUp} from "../components";
 
 const PostDetailPage = (props) => {
     const postId = props.match.params.postId;
@@ -65,9 +65,11 @@ const PostDetailPage = (props) => {
                         <Card.Content extra>
                             <LikeButton user={context.user} post={{id: id, likes: likes, likeCount: likeCount}}/>
                             <Button labelPosition='right' as={'div'} onClick={onComment}>
-                                <Button color='blue' basic>
-                                    <Icon name='comments' />
-                                </Button>
+                                <PopUp content={'Comment on post'}>
+                                    <Button color='blue' basic>
+                                        <Icon name='comments' />
+                                    </Button>
+                                </PopUp>
                                 <Label basic color='blue' pointing='left'>
                                     {commentCount}
                                 </Label>
