@@ -1,6 +1,6 @@
-import React from 'react';
-import App from './App';
 import {ApolloClient, ApolloProvider, createHttpLink, InMemoryCache} from '@apollo/client';
+
+import App from './App';
 
 const httpLink = createHttpLink({
     uri: 'http://localhost:8080'
