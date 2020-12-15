@@ -4,17 +4,21 @@ import 'semantic-ui-css/semantic.min.css';
 
 import {HomePage, LoginPage, RegisterPage} from './pages';
 import {NavBar} from './components';
+import {AuhtProvider} from './context/auth';
+import AuthRoute from "./util/AuthRoute";
 
 const App = () => {
     return (
-        <Router>
-            <Container>
-                <NavBar/>
-                <Route exact path='/' component={HomePage}/>
-                <Route exact path='/login' component={LoginPage}/>
-                <Route exact path='/register' component={RegisterPage}/>
-            </Container>
-        </Router>
+        <AuhtProvider>
+            <Router>
+                <Container>
+                    <NavBar/>
+                    <Route exact path='/' component={HomePage}/>
+                    <AuthRoute exact path='/login' component={LoginPage}/>
+                    <AuthRoute exact path='/register' component={RegisterPage}/>
+                </Container>
+            </Router>
+        </AuhtProvider>
     );
 }
 export default App;
