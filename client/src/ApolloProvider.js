@@ -7,11 +7,14 @@ const httpLink = createHttpLink({
     uri: 'http://localhost:8080'
 });
 
-const authLink = setContext(() => {
+const authLink = setContext((_, { headers }) => {
     const userData = JSON.parse(localStorage.getItem('userData'));
+    const token = userData?.token;
+
     return {
         headers: {
-            Authorization: userData.token ? `Bearer ${userData.token}` : ''
+            ...headers,
+            Authorization: token ? `Bearer ${token}` : "",
         }
     }
 });
