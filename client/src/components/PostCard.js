@@ -1,12 +1,15 @@
+import {useContext} from 'react';
 import {Link} from 'react-router-dom';
-import {Card, Icon, Label, Image, Button} from 'semantic-ui-react';
 import moment from 'moment';
+import {Card, Icon, Label, Image, Button} from 'semantic-ui-react';
+
+import {AuthContext} from "../context/auth";
+import {LikeButton} from './';
 
 const PostCard = ({post: {body, createdAt, id, username, likes, likeCount, commentCount}}) => {
+    const context = useContext(AuthContext);
 
-    const onLikePost = () => {};
-
-    const onCommentPost = () => {};
+    const onDeletePost = () => {};
 
     return (
         <Card fluid>
@@ -21,15 +24,8 @@ const PostCard = ({post: {body, createdAt, id, username, likes, likeCount, comme
                 <Card.Description>{body}</Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <Button as='div' labelPosition='right' onClick={onLikePost}>
-                    <Button color='teal' basic>
-                        <Icon name='heart' />
-                    </Button>
-                    <Label basic color='teal' pointing='left'>
-                        {likeCount}
-                    </Label>
-                </Button>
-                <Button as='div' labelPosition='right' onClick={onCommentPost}>
+               <LikeButton user={context.user} post={{id, likes, likeCount}} />
+                <Button labelPosition='right' as={Link} to={`/posts/${id}`}>
                     <Button color='blue' basic>
                         <Icon name='comments' />
                     </Button>
@@ -37,6 +33,11 @@ const PostCard = ({post: {body, createdAt, id, username, likes, likeCount, comme
                         {commentCount}
                     </Label>
                 </Button>
+                {context.user && context.user.username === username && (
+                    <Button as={'div'} color={'red'} floated={'right'} onClick={onDeletePost}>
+                        <Icon name={'trash'} style={{margin: 0}} />
+                    </Button>
+                )}
             </Card.Content>
         </Card>
     );
